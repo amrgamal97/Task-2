@@ -1,0 +1,103 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<div class="searchInput">
+  <input
+    type="text"
+    name=""
+    id=""
+    [(ngModel)]="searchInput"
+    placeholder="رقم الطلب او اسم الزبون"
+    (keyup.enter)="filteredTable()"
+  />
+  <button class="btn btn-secondary" type="submit" (click)="filteredTable()">
+    بحث
+  </button>
+</div>
+
+<div class="card">
+  <p-table [value]="orderItems">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>#</th>
+        <th>اسم الزبون</th>
+        <th>الحالة</th>
+        <th>تاريخ الطلب</th>
+        <th>القيمة</th>
+        <th>المدفوع</th>
+        <th>طريقة الدفع</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.Id }}</td>
+        <td>{{ product.CusName }}</td>
+        <td>
+          <p-tag [value]="product.StatusDesc"></p-tag>
+        </td>
+        <td>{{ product.OrdDate | date }}</td>
+        <td>{{ product.SubAmount | currency }}</td>
+        <td>{{ product.PaidAmount | currency }}</td>
+        <td>
+          <img
+            src="assets/vector-credit-card-icon.jpg"
+            alt=""
+            style="width: 60px"
+          />
+        </td>
+        <td>
+          <p-button
+            styleClass="p-button-success"
+            (click)="showDialog(product.Id)"
+            >طباعة</p-button
+          >
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        الإجمالي {{ orderItems ? orderItems.length : 0 }} منتجات.
+        <div class="flex align-items-center justify-content-between">
+          <p-button icon="pi pi-refresh" (click)="refreshItems()"></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-table>
+  <!-- <h3></h3> -->
+</div>
+
+<p-dialog
+  header="تفاصيل الفاتورة"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '80vw', height: '80vh' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-table [value]="orderEachItem">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>رقم المنتج</th>
+        <th>اسم المنتج</th>
+        <th>الكمية</th>
+        <th>صورة المنتج</th>
+        <th>السعر الإجمالي</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.Id }}</td>
+        <td>{{ product.Name }}</td>
+        <td>{{ product.Qty }}</td>
+        <td>
+          <img
+            src="assets/wondicon-ui-free-parcel_111208.png"
+            alt=""
+            style="width: 60px"
+          />
+        </td>
+        <td>{{ product.Price | currency }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>

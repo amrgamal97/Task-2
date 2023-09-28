@@ -1,0 +1,32 @@
+.searchInput {
+  text-align: center;
+  margin: 25px;
+  input {
+    width: 100%;
+    max-width: 350px;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    border-left: none;
+    border: 1px solid #0000003d;
+  }
+  button {
+    height: 35px;
+    background-color: white;
+    border: 1p;
+    border: 1px solid #0000003d;
+    width: 100%;
+    max-width: 50px;
+    border-right: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+p-dialog {
+  p-button {
+    display: flex;
+    margin: 2rem 0;
+    justify-content: end;
+  }
+}
